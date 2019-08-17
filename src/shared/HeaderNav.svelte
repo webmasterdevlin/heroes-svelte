@@ -1,0 +1,59 @@
+<script>
+    import { onMount } from "svelte";
+    import { Router, Link, Route } from 'svelte-routing'
+    import Icon from 'fa-svelte'
+    import { faCube, faLink } from '@fortawesome/free-solid-svg-icons'
+
+    onMount(() => {});
+</script>
+<style>
+
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <span class="navbar-brand">
+          <Icon icon={faCube} ></Icon>
+        React Tour of Heroes
+      </span>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle=" collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls=" navbarSupportedContent"
+            aria-expanded="false"
+            aria-label=" Toggle navigation">
+        <span class="navbar-toggler-icon" ></span>
+    </button>
+
+    <div  style="width: 100%; height: auto; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item ml-3">
+            <Link class="nav-link" to="/">Heroes</Link>
+        </li>
+        <li class="nav-item ml-3">
+            <Link class="nav-link" to="/villains">Villains</Link>
+        </li>
+    </ul>
+
+    <ul class="navbar-nav my-2 my-lg-0">
+        <li class="nav-item">
+            <a class="nav-link"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href="https://twitter.com/DevlinDuldulao">
+                <Icon icon={faLink}></Icon>
+                <span>Twitter</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href="https://github.com/webmasterdevlin" >
+                <Icon icon={faLink}></Icon>
+                <span>Github</span>
+            </a>
+        </li>
+    </ul>
+    </div>
+</nav>
