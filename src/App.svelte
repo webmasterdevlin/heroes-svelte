@@ -20,7 +20,6 @@
 
 <Router url="">
   <HeaderNav />
-  <div class="container" />
   <Route path="/">
     <Heroes />
   </Route>

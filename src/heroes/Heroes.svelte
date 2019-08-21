@@ -1,13 +1,21 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import Icon from "fa-svelte";
   import { faEdit, faEraser } from "@fortawesome/free-solid-svg-icons";
-  import { getHeroes } from "./hero-service";
   import NewItemForm from "../shared/NewItemForm.svelte";
+  import {
+    heroStore,
+    loadHeroes,
+    loadHeroById,
+    updateHero,
+    removeHero
+  } from "../stores/heroStore.js";
+  import { navigate } from "svelte-routing";
 
-  export let heroes = [];
-  let isShowNewItemForm = "false";
+  let heroes;
+  let isLoading;
 
+  let isShowNewItemForm = false;
   let heroForm = {
     firstName: "",
     lastName: "",
@@ -22,12 +30,7 @@
     knownAs: ""
   };
 
-  function onChange() {
-    console.log("Event: ", event);
-  }
-
   function onSubmit(event) {
-    console.log("EVENT", heroForm);
     heroForm = heroFormReset;
   }
 
@@ -35,17 +38,29 @@
     isShowNewItemForm = !isShowNewItemForm;
   }
 
+  /* Will emit properties (1 or more) that changed.
+  for some reason, there will be no reactions in the component if the local variable and the parameter of the anonymous arrow functions have the same names.
+  This is the reason I had to renamed the parameters.
+  */
+  const subscription = heroStore.subscribe(
+    ({ heroes: newHeroes, isLoading: newIsLoading }) => {
+      heroes = newHeroes;
+      isLoading = newIsLoading;
+    }
+  );
+
   onMount(async () => {
-    heroes = (await getHeroes()).data;
-    console.log(heroes);
+    await loadHeroes();
   });
 
-  function handleClickEdit() {
-    alert("handleClickEdit");
+  function handleClickEdit(id) {
+    navigate(`/edit-hero/${id}`, { replace: true });
   }
 
-  function handleClickDelete() {
-    alert("handleClickDelete");
+  function handleClickDelete(id) {
+    alert(id);
+
+    onDestroy(subscription);
   }
 </script>
 
@@ -58,10 +73,9 @@
   <NewItemForm
     {isShowNewItemForm}
     bind:newItemForm={heroForm}
-    handleOnChange={onChange}
     handleOnSubmit={onSubmit}
     handleShowNewItemForm={showNewItemForm} />
-  {#if heroes.length === 0}
+  {#if isLoading}
     <div style="display:flex; flex-direction: row; justify-content: center">
       <div
         class="spinner-border"
@@ -81,13 +95,13 @@
         <section class="card-body">
           <div class="row">
             <button
-              on:click={handleClickEdit}
+              on:click={() => handleClickEdit(hero.id)}
               class="btn btn-primary card-link col text-center">
               <Icon icon={faEdit} />
               Edit
             </button>
             <button
-              on:click={handleClickDelete}
+              on:click={() => handleClickDelete(hero.id)}
               class="btn btn-outline-danger card-link col text-center">
               <Icon icon={faEraser} />
               Delete

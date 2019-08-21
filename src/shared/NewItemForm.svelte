@@ -9,7 +9,6 @@
   } from "@fortawesome/free-solid-svg-icons";
 
   export let isShowNewItemForm;
-  export let handleOnChange;
   export let handleOnSubmit;
   export let handleShowNewItemForm;
 
