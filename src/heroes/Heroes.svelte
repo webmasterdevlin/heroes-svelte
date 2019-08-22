@@ -3,13 +3,7 @@
   import Icon from "fa-svelte";
   import { faEdit, faEraser } from "@fortawesome/free-solid-svg-icons";
   import NewItemForm from "../shared/NewItemForm.svelte";
-  import {
-    heroStore,
-    loadHeroes,
-    loadHeroById,
-    updateHero,
-    removeHero
-  } from "../stores/heroStore.js";
+  import { heroStore } from "../stores/heroStore.js";
   import { navigate } from "svelte-routing";
 
   let isShowNewItemForm = false;
@@ -27,8 +21,8 @@
     knownAs: ""
   };
 
-  function onSubmit(event) {
-    console.log(heroForm);
+  function onSubmit() {
+    heroStore.createHero(heroForm);
     heroForm = heroFormReset;
   }
 
@@ -53,7 +47,7 @@
   // onDestroy(subscription);
 
   onMount(async () => {
-    await loadHeroes();
+    await heroStore.loadHeroes();
   });
 
   function handleClickEdit(id) {
@@ -61,7 +55,7 @@
   }
 
   async function handleClickDelete(id) {
-    await removeHero(id);
+    await heroStore.removeHero(id);
   }
 </script>
 
