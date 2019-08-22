@@ -2,10 +2,22 @@
   import { onMount } from "svelte";
   import { heroStore } from "./heroStore.js";
 
+  let heroForm = {
+    firstName: "d",
+    lastName: "a",
+    house: "s",
+    knownAs: "d"
+  };
+
   onMount(async () => {
     const id = window.location.href.match(/([^\/]+$)/)[0];
     await heroStore.loadHeroById(id);
+    heroForm = $heroStore.hero;
   });
+
+  function onSubmit() {
+    heroStore.updateHero(heroForm);
+  }
 </script>
 
 <style>
@@ -25,11 +37,12 @@
   {:else}
     <main class="container" style="width: auto">
       <h2>Edit Hero</h2>
-      <form class="card-header">
+      <form class="card-header" on:submit|preventDefault={() => onSubmit()}>
         <section class="d-flex flex-row">
           <div class="mt-3 mr-3 input-width">
             <label htmlFor="firstName">First Name</label>
             <input
+              bind:value={heroForm.firstName}
               name="firstName"
               type="text"
               id="firstName"
@@ -38,6 +51,7 @@
           <div class="mt-3 ml-3 input-width">
             <label>Last Name</label>
             <input
+              bind:value={heroForm.lastName}
               name="lastName"
               type="text"
               id="lastName"
@@ -45,11 +59,24 @@
           </div>
         </section>
         <label class="mt-3">House</label>
-        <input name="house" type="text" id="house" class="form-control" />
+        <input
+          bind:value={heroForm.house}
+          name="house"
+          type="text"
+          id="house"
+          class="form-control" />
         <label class="mt-3">Known as</label>
-        <input name="knownAs" type="text" id="knownAs" class="form-control" />
+        <input
+          bind:value={heroForm.knownAs}
+          name="knownAs"
+          type="text"
+          id="knownAs"
+          class="form-control" />
         <button type="submit" class="btn btn-info mt-3">Update</button>
-        <button type="button" class="btn btn-outline-secondary mt-3 ml-3">
+        <button
+          on:click={() => window.history.back()}
+          type="button"
+          class="btn btn-outline-secondary mt-3 ml-3">
           Back
         </button>
       </form>

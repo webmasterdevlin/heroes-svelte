@@ -39,14 +39,13 @@ function createHeroStore() {
     loadHeroById: async id => {
       update(state => (state = { ...state, isLoading: true }));
       try {
-        const hero = await getHeroById(id);
-        update(state => (state.hero = hero));
+        const res = (await getHeroById(id)).data;
+        update(state => (state = { ...state, hero: res }));
       } catch (e) {
         console.log(e.message);
-        // alert(e.message);
-      } finally {
-        update(state => (state = { ...state, isLoading: false }));
+        alert(e.message);
       }
+      update(state => (state = { ...state, isLoading: false }));
     },
 
     createHero: async newHero => {
