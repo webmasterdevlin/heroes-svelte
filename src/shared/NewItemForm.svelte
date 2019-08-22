@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { fade, fly } from "svelte/transition";
   import Icon from "fa-svelte";
   import { createEventDispatcher } from "svelte";
   import {
@@ -34,6 +35,8 @@
 
       {#if isShowNewItemForm}
         <button
+          in:fly={{ x: 200, duration: 2000 }}
+          out:fade
           on:click={handleShowNewItemForm}
           type="button"
           class="btn btn-outline-warning mx-1">
@@ -44,7 +47,11 @@
 
     </div>
     {#if isShowNewItemForm}
-      <div class="card my-3" style="width:auto">
+      <div
+        class="card my-3"
+        style="width:auto"
+        in:fly={{ y: 200, duration: 2000 }}
+        out:fade>
         <form class="card-header" on:submit|preventDefault={handleOnSubmit}>
           <section class="d-flex flex-row">
             <div class="mt-3 mr-3">
