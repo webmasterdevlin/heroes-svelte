@@ -3,7 +3,7 @@
   import Icon from "fa-svelte";
   import { faEdit, faEraser } from "@fortawesome/free-solid-svg-icons";
   import NewItemForm from "../shared/NewItemForm.svelte";
-  import { heroStore } from "./heroStore.js";
+  import { heroStore } from "./hero.store.js";
   import { navigate } from "svelte-routing";
 
   let isShowNewItemForm = false;
@@ -21,8 +21,8 @@
     knownAs: ""
   };
 
-  function onSubmit() {
-    heroStore.createHero(heroForm);
+  async function onSubmit() {
+    await heroStore.createHero(heroForm);
     heroForm = heroFormReset;
   }
 

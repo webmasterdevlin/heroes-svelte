@@ -5,7 +5,7 @@ import {
   deleteHero,
   putHero,
   postHero
-} from "./hero-service";
+} from "./hero.service";
 
 const initialState = {
   heroes: [],

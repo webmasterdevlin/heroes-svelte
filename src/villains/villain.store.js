@@ -5,7 +5,7 @@ import {
   deleteVillain,
   putVillain,
   postVillain
-} from "./villain-service";
+} from "./villain.service";
 
 const initialState = {
   villains: [],
@@ -36,11 +36,11 @@ function createVillainStore() {
       }
     },
 
-    loadVillainById: async updatedVillain => {
+    loadVillainById: async id => {
       update(state => (state = { ...state, isLoading: true }));
       try {
-        const villain = await getVillainById(i);
-        update(state => (state.villain = villain));
+        const res = (await getVillainById(id)).data;
+        update(state => (state = { ...state, villain: res }));
       } catch (e) {
         alert(e.message);
       } finally {

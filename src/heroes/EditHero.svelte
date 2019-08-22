@@ -1,12 +1,13 @@
 <script>
   import { onMount } from "svelte";
-  import { heroStore } from "./heroStore.js";
+  import { heroStore } from "./hero.store.js";
+  import { navigate } from "svelte-routing";
 
   let heroForm = {
-    firstName: "d",
-    lastName: "a",
-    house: "s",
-    knownAs: "d"
+    firstName: "",
+    lastName: "",
+    house: "",
+    knownAs: ""
   };
 
   onMount(async () => {
@@ -15,8 +16,8 @@
     heroForm = $heroStore.hero;
   });
 
-  function onSubmit() {
-    heroStore.updateHero(heroForm);
+  async function onSubmit() {
+    await heroStore.updateHero(heroForm);
   }
 </script>
 
@@ -74,7 +75,7 @@
           class="form-control" />
         <button type="submit" class="btn btn-info mt-3">Update</button>
         <button
-          on:click={() => window.history.back()}
+          on:click={() => navigate('/')}
           type="button"
           class="btn btn-outline-secondary mt-3 ml-3">
           Back
