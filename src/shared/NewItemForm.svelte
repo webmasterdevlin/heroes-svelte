@@ -45,7 +45,7 @@
     </div>
     {#if isShowNewItemForm}
       <div class="card my-3" style="width:auto">
-        <form class="card-header">
+        <form class="card-header" on:submit|preventDefault={handleOnSubmit}>
           <section class="d-flex flex-row">
             <div class="mt-3 mr-3">
               <label for="firstName">First Name</label>
@@ -83,10 +83,7 @@
             id="knownAs"
             type="text"
             class="form-control" />
-          <button
-            on:click|preventDefault={handleOnSubmit}
-            type="button"
-            class="btn btn-success mt-3">
+          <button type="submit" class="btn btn-success mt-3">
             <Icon icon={faSave} />
             Save
           </button>

@@ -18,5 +18,5 @@ export async function putHero(hero) {
 }
 
 export async function deleteHero(id) {
-  return await http.delete(`${BaseUrl.heroes}${id}`);
+  return await http.delete(`${BaseUrl.heroes}${id}123`);
 }

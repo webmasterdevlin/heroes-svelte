@@ -28,7 +28,6 @@ export async function loadHeroes() {
     const res = (await getHeroes()).data;
     heroStore.update(state => (state = { ...state, heroes: res }));
   } catch (e) {
-    console.log(e);
     alert(e.message);
   }
   heroStore.update(state => (state = { ...state, isLoading: false }));
@@ -39,20 +38,25 @@ export async function loadHeroById(updatedHero) {
     const hero = await getHeroById(i);
     heroStore.update(state => (state.hero = hero));
   } catch (e) {
-    console.log(e.message);
     alert(e.message);
   }
 }
 
 export async function removeHero(id) {
+  const confirmation = confirm("You sure you want to delete this?");
+  if (!confirmation) return;
+
+  let previousHeroes;
+  heroStore.update(state => {
+    previousHeroes = state.heroes;
+    const updatedHeroes = state.heroes.filter(h => h.id !== id);
+    return (state = { ...state, heroes: updatedHeroes }); // need to return the state only
+  });
   try {
     await deleteHero(id);
-    heroStore.update(state => {
-      state.heroes = state.heroes.filter(h => h.id === id);
-    });
   } catch (e) {
-    console.log(e.message);
     alert(e.message);
+    heroStore.update(state => (state = { ...state, heroes: previousHeroes }));
   }
 }
 
@@ -63,5 +67,7 @@ export async function updateHero(updatedHero) {
       const index = state.heroes.findIndex(h => h.id === updatedHero.id);
       state.heroes[index] = updatedHero;
     });
-  } catch (e) {}
+  } catch (e) {
+    alert(e.message);
+  }
 }

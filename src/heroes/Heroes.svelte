@@ -12,9 +12,6 @@
   } from "../stores/heroStore.js";
   import { navigate } from "svelte-routing";
 
-  let heroes;
-  let isLoading;
-
   let isShowNewItemForm = false;
   let heroForm = {
     firstName: "",
@@ -31,6 +28,7 @@
   };
 
   function onSubmit(event) {
+    console.log(heroForm);
     heroForm = heroFormReset;
   }
 
@@ -38,16 +36,21 @@
     isShowNewItemForm = !isShowNewItemForm;
   }
 
-  /* Will emit properties (1 or more) that changed.
+  /* 
+  Extra setup for not using auto-subscriptions.
+  Will emit properties (1 or more) that changed.
   for some reason, there will be no reactions in the component if the local variable and the parameter of the anonymous arrow functions have the same names.
   This is the reason I had to renamed the parameters.
   */
-  const subscription = heroStore.subscribe(
-    ({ heroes: newHeroes, isLoading: newIsLoading }) => {
-      heroes = newHeroes;
-      isLoading = newIsLoading;
-    }
-  );
+  // let heroes;
+  // let isLoading;
+  // const subscription = heroStore.subscribe(
+  //   ({ heroes: newHeroes, isLoading: newIsLoading }) => {
+  //     heroes = newHeroes;
+  //     isLoading = newIsLoading;
+  //   }
+  // );
+  // onDestroy(subscription);
 
   onMount(async () => {
     await loadHeroes();
@@ -57,10 +60,8 @@
     navigate(`/edit-hero/${id}`, { replace: true });
   }
 
-  function handleClickDelete(id) {
-    alert(id);
-
-    onDestroy(subscription);
+  async function handleClickDelete(id) {
+    await removeHero(id);
   }
 </script>
 
@@ -75,7 +76,7 @@
     bind:newItemForm={heroForm}
     handleOnSubmit={onSubmit}
     handleShowNewItemForm={showNewItemForm} />
-  {#if isLoading}
+  {#if $heroStore.isLoading}
     <div style="display:flex; flex-direction: row; justify-content: center">
       <div
         class="spinner-border"
@@ -85,7 +86,7 @@
       </div>
     </div>
   {:else}
-    {#each heroes as hero}
+    {#each $heroStore.heroes as hero}
       <div class="card mt-3" style="width: auto;">
         <div class="card-header">
           <h3 class="card-title">{hero.firstName} {hero.lastName}</h3>
