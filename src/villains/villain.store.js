@@ -100,3 +100,8 @@ function createVillainStore() {
 }
 
 export const villainStore = createVillainStore();
+/* computed values */
+export const getTotalVillains = derived(
+  villainStore,
+  $villainStore => $villainStore.villains.length
+);

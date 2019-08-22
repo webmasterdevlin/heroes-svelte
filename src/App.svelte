@@ -1,7 +1,6 @@
 <script>
   import { Router, Link, Route } from "svelte-routing";
-  import "../node_modules/bootstrap/dist/css/bootstrap.css"; // need to update rollup config
-  import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
+
 
   import HeaderNav from "./shared/HeaderNav.svelte";
   import Heroes from "./heroes/Heroes.svelte";

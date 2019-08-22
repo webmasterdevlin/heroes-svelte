@@ -96,3 +96,9 @@ function createHeroStore() {
 }
 
 export const heroStore = createHeroStore();
+
+/* computed values */
+export const getTotalHeroes = derived(
+  heroStore,
+  $heroStore => $heroStore.heroes.length
+);
