@@ -1,15 +1,15 @@
 import { writable, readable, derived, get } from "svelte/store";
 import {
-  getVillains,
-  getVillainById,
-  deleteVillain,
-  putVillain,
-  postVillain
-} from "../villains/villain-service";
+  getHeroes,
+  getHeroById,
+  deleteHero,
+  putHero,
+  postHero
+} from "./hero-service";
 
 const initialState = {
-  villains: [],
-  villain: {
+  heroes: [],
+  hero: {
     id: "",
     firstName: "",
     lastName: "",
@@ -19,16 +19,16 @@ const initialState = {
   isLoading: false,
   error: ""
 };
-function createVillainStore() {
+function createHeroStore() {
   const { subscribe, update, set } = writable(initialState);
 
   return {
     subscribe,
-    loadVillains: async () => {
+    loadHeroes: async () => {
       update(state => (state = { ...state, isLoading: true }));
       try {
-        const res = (await getVillains()).data;
-        update(state => (state = { ...state, villains: res }));
+        const res = (await getHeroes()).data;
+        update(state => (state = { ...state, heroes: res }));
       } catch (e) {
         alert(e.message);
       } finally {
@@ -36,11 +36,11 @@ function createVillainStore() {
       }
     },
 
-    loadVillainById: async updatedVillain => {
+    loadHeroById: async updatedHero => {
       update(state => (state = { ...state, isLoading: true }));
       try {
-        const villain = await getVillainById(i);
-        update(state => (state.villain = villain));
+        const hero = await getHeroById(i);
+        update(state => (state.hero = hero));
       } catch (e) {
         alert(e.message);
       } finally {
@@ -48,13 +48,11 @@ function createVillainStore() {
       }
     },
 
-    createVillain: async newVillain => {
+    createHero: async newHero => {
       update(state => (state = { ...state, isLoading: true }));
       try {
-        const res = (await postVillain(newVillain)).data;
-        update(
-          state => (state = { ...state, villains: [...state.villains, res] })
-        );
+        const res = (await postHero(newHero)).data;
+        update(state => (state = { ...state, heroes: [...state.heroes, res] }));
       } catch (e) {
         alert(e.message);
       } finally {
@@ -62,33 +60,31 @@ function createVillainStore() {
       }
     },
 
-    removeVillain: async id => {
+    removeHero: async id => {
       const confirmation = confirm("You sure you want to delete this?");
       if (!confirmation) return;
 
-      let previousVillains;
+      let previousHeroes;
       update(state => {
-        previousVillains = state.villains;
-        const updatedVillains = state.villains.filter(h => h.id !== id);
-        return (state = { ...state, villains: updatedVillains }); // need to return the state only
+        previousHeroes = state.heroes;
+        const updatedHeroes = state.heroes.filter(h => h.id !== id);
+        return (state = { ...state, heroes: updatedHeroes }); // need to return the state only
       });
       try {
-        await deleteVillain(id);
+        await deleteHero(id);
       } catch (e) {
         alert(e.message);
-        update(state => (state = { ...state, villains: previousVillains }));
+        update(state => (state = { ...state, heroes: previousHeroes }));
       }
     },
 
-    updateVillain: async updatedVillain => {
+    updateHero: async updatedHero => {
       update(state => (state = { ...state, isLoading: true }));
       try {
-        await putVillain(updatedVillain);
+        await putHero(updatedHero);
         update(state => {
-          const index = state.villains.findIndex(
-            h => h.id === updatedVillain.id
-          );
-          state.villains[index] = updatedVillain;
+          const index = state.heroes.findIndex(h => h.id === updatedHero.id);
+          state.heroes[index] = updatedHero;
         });
       } catch (e) {
         alert(e.message);
@@ -99,4 +95,4 @@ function createVillainStore() {
   };
 }
 
-export const villainStore = createVillainStore();
+export const heroStore = createHeroStore();

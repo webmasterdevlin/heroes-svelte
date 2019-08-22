@@ -3,7 +3,7 @@
   import Icon from "fa-svelte";
   import { faEdit, faEraser } from "@fortawesome/free-solid-svg-icons";
   import NewItemForm from "../shared/NewItemForm.svelte";
-  import { heroStore } from "../stores/heroStore.js";
+  import { heroStore } from "./heroStore.js";
   import { navigate } from "svelte-routing";
 
   let isShowNewItemForm = false;
@@ -31,7 +31,7 @@
   }
 
   /* 
-  Extra setup for not using auto-subscriptions.
+  Extra setup for not using auto-subscriptions ($ prefix is the auto-subscriptions).
   Will emit properties (1 or more) that changed.
   for some reason, there will be no reactions in the component if the local variable and the parameter of the anonymous arrow functions have the same names.
   This is the reason I had to renamed the parameters.
@@ -64,7 +64,7 @@
 </style>
 
 <!-- The newItemForm object of the child component sends it properties to the heroForm object of the parent component -->
-<div class="container">
+<main class="container">
   <NewItemForm
     {isShowNewItemForm}
     bind:newItemForm={heroForm}
@@ -106,4 +106,4 @@
       </div>
     {/each}
   {/if}
-</div>
+</main>
