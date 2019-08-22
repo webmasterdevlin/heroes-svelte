@@ -2,7 +2,10 @@
   import { onMount } from "svelte";
   import { heroStore } from "./heroStore.js";
 
-  onMount(() => {});
+  onMount(async () => {
+    const id = window.location.href.match(/([^\/]+$)/)[0];
+    await heroStore.loadHeroById(id);
+  });
 </script>
 
 <style>
