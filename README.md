@@ -1,69 +1,20 @@
-*Psst — looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+# My version of Tour of Heroes app using Svelte and its own store for State Management API
 
----
+### Features
 
-# svelte app
+Svelte CRUD, animation, HTTP request (using axios), navigation params, 2 stores, computed (derived) values.
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+### To run the project after cloning
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+Create or go to your demo directory then run the following in the terminal or cmd.
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
+```sh
+$ git clone https://github.com/webmasterdevlin/heroes-svelte.git
+$ cd heroes-svelte
+$ npm install
+$ npm run serve
 ```
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+The Svelte app and the fake web service will run concurrently.
 
-
-## Get started
-
-Install the dependencies...
-
-```bash
-cd svelte-app
-npm install
-```
-
-...then start [Rollup](https://rollupjs.org):
-
-```bash
-npm run dev
-```
-
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-
-## Deploying to the web
-
-### With [now](https://zeit.co/now)
-
-Install `now` if you haven't already:
-
-```bash
-npm install -g now
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-now
-```
-
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public
-```
+![screenshot](./screenshot-svelte.png)

@@ -20,7 +20,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <span class="navbar-brand">
     <Icon icon={faCube} />
-    React Tour of Heroes
+    Svelte Tour of Heroes
   </span>
   <button
     class="navbar-toggler"
