@@ -1,7 +1,6 @@
 <script>
   import { Router, Link, Route } from "svelte-routing";
 
-
   import HeaderNav from "./shared/HeaderNav.svelte";
   import Heroes from "./heroes/Heroes.svelte";
   import Villains from "./villains/Villains.svelte";
@@ -12,7 +11,7 @@
 </script>
 
 <style>
-  h1 {
+  :global(p) {
     color: purple;
   }
 </style>
