@@ -84,7 +84,12 @@ function createHeroStore() {
         await putHero(updatedHero);
         update(state => {
           const index = state.heroes.findIndex(h => h.id === updatedHero.id);
-          state.heroes[index] = updatedHero;
+          const copyOfHeroes = state.heroes;
+          copyOfHeroes[index] = updatedHero;
+          return (state = {
+            ...state,
+            heroes: copyOfHeroes
+          });
         });
       } catch (e) {
         alert(e.message);

@@ -62,6 +62,7 @@ function createVillainStore() {
       }
     },
 
+    /* Optimistic UI update. Updating the UI before sending the request to the web service */
     removeVillain: async id => {
       const confirmation = confirm("You sure you want to delete this?");
       if (!confirmation) return;
@@ -88,7 +89,12 @@ function createVillainStore() {
           const index = state.villains.findIndex(
             h => h.id === updatedVillain.id
           );
-          state.villains[index] = updatedVillain;
+          const copyOfVillains = state.villains;
+          copyOfVillains[index] = updatedVillain;
+          return (state = {
+            ...state,
+            villains: copyOfVillains
+          });
         });
       } catch (e) {
         alert(e.message);
