@@ -6,8 +6,6 @@
   import Villains from "./villains/Villains.svelte";
   import EditHero from "./heroes/EditHero.svelte";
   import EditVillain from "./villains/EditVillain.svelte";
-
-  export let name;
 </script>
 
 <style>

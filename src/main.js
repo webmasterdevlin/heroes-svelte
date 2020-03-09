@@ -3,10 +3,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.css"; // need to update rol
 import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
 
 const app = new App({
-  target: document.body,
-  props: {
-    name: "world"
-  }
+  target: document.body
 });
 
 export default app;
