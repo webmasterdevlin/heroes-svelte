@@ -53,14 +53,14 @@
       <section>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item ml-3">
-            <Link to="/">
+            <Link data-testid="nav-heroes" to="/">
               <button type="button" class="btn btn-default nav-button">
                 Heroes
               </button>
             </Link>
           </li>
           <li class="nav-item ml-3">
-            <Link to="/villains">
+            <Link data-testid="nav-villains" to="/villains">
               <button type="button" class="btn btn-default">Villains</button>
             </Link>
           </li>

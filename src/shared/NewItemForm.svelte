@@ -59,6 +59,7 @@
               <!-- bind:value means pass the value of the input to the heroForm.firstName property, which then will be passed to the parent component -->
               <!-- That's why I created the export let newItemForm component -->
               <input
+                data-testid="firstName"
                 bind:value={newItemForm.firstName}
                 name="firstName"
                 id="firstName"
@@ -69,6 +70,7 @@
             <div class="mt-3 ml-3">
               <label for="lastName">Last Name</label>
               <input
+                data-testid="lastName"
                 bind:value={newItemForm.lastName}
                 name="lastName"
                 id="lastName"
@@ -78,6 +80,7 @@
           </section>
           <label for="house" class="mt-3">House</label>
           <input
+          data-testid="house"
             bind:value={newItemForm.house}
             name="house"
             id="house"
@@ -85,12 +88,15 @@
             class="form-control" />
           <label for="knownAs" class="mt-3">Known as</label>
           <input
+            data-testid="knownAs"
             bind:value={newItemForm.knownAs}
             name="knownAs"
             id="knownAs"
             type="text"
             class="form-control" />
-          <button type="submit" class="btn btn-success mt-3">
+          <button
+           data-testid="save-character"
+           type="submit" class="btn btn-success mt-3">
             <Icon icon={faSave} />
             Save
           </button>

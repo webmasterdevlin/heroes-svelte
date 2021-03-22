@@ -30,7 +30,7 @@
     isShowNewItemForm = !isShowNewItemForm;
   }
 
-  /* 
+  /*
   Extra setup for not using auto-subscriptions ($ prefix is the auto-subscriptions).
   Will emit properties (1 or more) that changed.
   for some reason, there will be no reactions in the component if the local variable and the parameter of the anonymous arrow functions have the same names.
@@ -81,7 +81,7 @@
     </div>
   {:else}
     {#each $heroStore.heroes as hero}
-      <div class="card mt-3" style="width: auto;">
+      <div data-testid="card" class="card mt-3" style="width: auto;">
         <div class="card-header">
           <h3 class="card-title">{hero.firstName} {hero.lastName}</h3>
           <h5 class="card-subtitle mb-2 text-muted">{hero.house}</h5>
